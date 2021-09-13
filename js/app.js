@@ -16,10 +16,10 @@ const showProducts = (products) => {
     div.innerHTML = `
     <div class="single-product">
       <div>
-        <img class="product-image" src=${product.image}></img>
+        <img class="product-image" src=${product.image}></img>    // bug fixed 
         <h3>${product.title}</h3>
         <p>Category: ${product.category}</p>
-        <h5>Rating: ${product.rating.rate}  Totatal rated: ${product.rating.count}</h5>
+        <h5>Rating: ${product.rating.rate}  Totatal rated: ${product.rating.count}</h5> // rating and total rating 
         <h2>Price: $ ${product.price}</h2>
         <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
         <button  id="details-btn" class="btn btn-danger">Details</button>
@@ -39,32 +39,28 @@ const addToCart = (id, price) => {
 
   updatePrice("price", price);
   updateTaxAndCharge();
-  updateTotal(); 
+  updateTotal(); // total price fn calling
   
 };
 
 const getInputValue = (id) => {
-  //console.log('inputID:',id);
   const element = document.getElementById(id).innerText;
-  //console.log('getInputElement:',element);
-  const converted = parseFloat(element);
+  const converted = parseFloat(element); // bug fixed 
   return converted;
 };
 
 // main price update function
 const updatePrice = (id, value) => {
-  //console.log('pm:',value);
   const convertedOldPrice = getInputValue(id);
-  //console.log('old Price:',convertedOldPrice);
   const convertPrice = parseFloat(value);
   console.log('convertPrice:',convertPrice);
   const total = convertedOldPrice + convertPrice;
-  document.getElementById(id).innerText = total.toFixed(2);
+  document.getElementById(id).innerText = total.toFixed(2); // set two decimal points 
 };
 
 // set innerText function
 const setInnerText = (id, value) => {
-  document.getElementById(id).innerText = value.toFixed(2);
+  document.getElementById(id).innerText = value.toFixed(2); // set two decimal points 
 };
 
 // update delivery charge and total Tax
@@ -83,15 +79,15 @@ const updateTaxAndCharge = () => {
     setInnerText("delivery-charge", 60);
     setInnerText("total-tax", priceConverted * 0.4);
   }
-  else{
+  else{                                                // condition changedd a little bit 
     setInnerText("delivery-charge", 20);
     setInnerText("total-tax", priceConverted * 0);
   }
-};
+};    
 
 //grandTotal update function
 const updateTotal = () => {
   const grandTotal = ( getInputValue("price") + getInputValue("delivery-charge") +
-  getInputValue("total-tax")).toFixed(2);
+  getInputValue("total-tax")).toFixed(2);      // set two decimal points 
   document.getElementById("total").innerText = grandTotal;
 };
